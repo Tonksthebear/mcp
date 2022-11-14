@@ -1,0 +1,3 @@
+class MCP::Story
+
+end
