@@ -1,2 +1,2 @@
-class MCP::ChoiceScript::Story < MCP::Story
+class MCP::ChoiceScript::Story < ::MCP::Story
 end

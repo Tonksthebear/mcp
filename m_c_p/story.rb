@@ -1,3 +1,4 @@
-class MCP::Story
-
+module MCP
+  class Story
+  end
 end

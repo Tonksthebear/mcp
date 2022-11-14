@@ -6,4 +6,5 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '3.1.1'
 
-gem 'activesupport', '~> 5.0'
+gem 'activesupport', '~> 7.0', '>= 7.0.4'
+gem 'activemodel', '~> 7.0', '>= 7.0.4'
