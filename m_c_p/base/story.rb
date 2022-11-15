@@ -1,9 +1,31 @@
-class MCP::Base::Story
+class MCP::Base::Story < MCP::Base
+
+  attr_accessor :pages
+
   def initialize(file_path)
-    self.class.parse(File.read(file_path))
+    @pages = []
+    parse_pages(File.read(file_path))
   end
 
-  def self.parse(file_data)
-    raise "Implement in inherited class"
+  def parse_pages(file_data)
+    page_header_indexes = page_indexes(file_data)
+
+    page_header_indexes.each_with_index do |page_header_index, i|
+      if i < page_header_indexes.length - 1
+        pages << page_class.new(self, file_data[page_header_index...page_header_indexes[i + 1]])
+      else
+        pages << page_class.new(self, file_data[page_header_index..])
+      end
+    end
+  end
+
+  def page_indexes(file_data)
+    file_data.enum_for(:scan, page_class::START_REGEX).map do 
+      Regexp.last_match.begin(0)
+    end
+  end
+
+  def page_class
+    (module_name + "::Page").constantize
   end
 end

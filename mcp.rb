@@ -1,6 +1,7 @@
-require('active_support')
-require('active_model')
-load('m_c_p/m_c_p.rb')
+require 'active_support'
+require 'active_support/core_ext'
+require 'active_model'
+load 'm_c_p/m_c_p.rb'
 
 path = unless ARGV.empty?
          ARGV[0]
@@ -10,4 +11,5 @@ path = unless ARGV.empty?
        end
 
 story = MCP::ChoiceScript::Story.new(path)
+binding.irb
 
