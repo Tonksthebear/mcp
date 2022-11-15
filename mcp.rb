@@ -9,5 +9,5 @@ path = unless ARGV.empty?
          gets.chomp
        end
 
-story = MCP::ChoiceScript::Story.new(File.join(__dir__, path))
+story = MCP::ChoiceScript::Story.new(path)
 

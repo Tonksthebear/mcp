@@ -1,2 +1,2 @@
-class MCP::Twine::Story < ::MCP::Story
+class MCP::Twine::Story < MCP::Base::Story
 end
