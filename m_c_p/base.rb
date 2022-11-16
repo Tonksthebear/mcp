@@ -4,4 +4,8 @@ class MCP::Base
   def module_name
     self.class.name.split("::")[0..1].join("::")
   end
+
+  def indentation_count(line)
+    line.scan(/\ {4}|\t/).length
+  end
 end

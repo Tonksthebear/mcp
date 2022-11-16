@@ -20,7 +20,7 @@ class MCP::Base::Story < MCP::Base
   end
 
   def page_indexes(file_data)
-    file_data.enum_for(:scan, page_class::START_REGEX).map do 
+    file_data.enum_for(:scan, page_class::TITLE_REGEX).map do 
       Regexp.last_match.begin(0)
     end
   end

@@ -1,4 +1,4 @@
 class MCP::ChoiceScript::Page < MCP::Base::Page
-  START_REGEX = /^\*label /
+  TITLE_REGEX = /^\*label /
 
 end
