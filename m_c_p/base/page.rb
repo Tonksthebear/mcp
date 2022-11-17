@@ -1,4 +1,6 @@
 class MCP::Base::Page < MCP::Base
+  NESTABLE = false
+
   attr_accessor :story, :title, :body, :variables, :choices
 
   def initialize(story, page_text)
@@ -17,17 +19,26 @@ class MCP::Base::Page < MCP::Base
 
     page_text.each_line do |line|
       current_indentation = indentation_count(line)
+      line = line.strip
 
-      if line.match(self.class::TITLE_REGEX)
+      if line.match(self.class::REGEX)
         set_title(line)
-      elsif indent_parameters[:indentation] < current_indentation && indent_parameters[:object]
+
+      elsif indent_parameters[:indentation] < current_indentation
         indent_parameters[:object].parse_line(line)
-      elsif line.match(choice_class::SETTER_REGEX)
+      elsif line.match(choice_class::REGEX)
         indent_parameters[:object] = choice_class.new(line)
         indent_parameters[:indentation] = current_indentation
 
         @choices << indent_parameters[:object]
-      elsif line.match(variable_class::SETTER_REGEX)
+      elsif line.match(conditional_class::REGEX)
+        #TODO conditionals are not getting their "then" objects assigned properly. Instead they are just becoming
+        # more options within the choice. We need to use indentation to go up n levels of objects to properly assign these.
+        indent_parameters[:object] = conditional_class.new(line)
+        indent_parameters[:indentation] = current_indentation
+
+        @choices << indent_parameters[:object]
+      elsif line.match(variable_class::REGEX)
         @variables << variable_class.new(line)
       else
         @body << line
@@ -45,5 +56,9 @@ class MCP::Base::Page < MCP::Base
 
   def choice_class
     (module_name + "::Choice").constantize
+  end
+
+  def conditional_class
+    (module_name + "::Conditional").constantize
   end
 end

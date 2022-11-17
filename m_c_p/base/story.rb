@@ -1,4 +1,5 @@
 class MCP::Base::Story < MCP::Base
+  NESTABLE = false
 
   attr_accessor :pages
 

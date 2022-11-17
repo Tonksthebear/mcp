@@ -1,21 +1,15 @@
 class MCP::Base::Choice < MCP::Base
+  NESTABLE = true
+
   attr_accessor :options
 
   def initialize(choice_text)
     @options = []
-    parse_text(choice_text)
   end
 
   def parse_line(line)
-    @options << option_class.new(line)
-  end
+    class_match = regex_class_match(line)
 
-  private
-
-  def parse_text(choice_text)
-  end
-
-  def option_class
-    (module_name + "::Option").constantize
+    @options << class_match.new(line) if class_match
   end
 end

@@ -16,6 +16,7 @@ GEM
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
+  ruby
   x86_64-darwin-21
 
 DEPENDENCIES
