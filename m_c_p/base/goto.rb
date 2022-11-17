@@ -4,7 +4,7 @@ class MCP::Base::Goto < MCP::Base
   attr_accessor :label
 
   def initialize(label)
-    @label = label.sub(label.match(self.class::REGEX)[0],'').strip
+    @label = strip_regex_match(label)
   end
 
 end

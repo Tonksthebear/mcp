@@ -4,7 +4,7 @@ class MCP::Base::Conditional < MCP::Base
   attr_accessor :if, :then, :body
 
   def initialize(condition)
-    @if = condition.sub(condition.match(self.class::REGEX)[0],'').strip
+    @if = strip_regex_match(condition)
     @then = []
     @body = ""
   end

@@ -4,7 +4,7 @@ class MCP::Base::Answer < MCP::Base
   attr_accessor :text, :then
 
   def initialize(text)
-    @text = text.sub(text.match(self.class::REGEX)[0],'').strip
+    @text = strip_regex_match(text)
     @then = []
   end
 

@@ -1,3 +1,4 @@
 class MCP::ChoiceScript::Conditional < MCP::Base::Conditional
-  REGEX = /^\*if/
+  #Having trouble getting regex to not capture the if condition itself with a non-capturing group
+  REGEX = /^\*if\s\(/
 end

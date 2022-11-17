@@ -5,6 +5,10 @@ class MCP::Base
     self.class.name.split("::")[0..1].join("::")
   end
 
+  def strip_regex_match(line)
+    line.sub(line.match(self.class::REGEX)[0],'').strip
+  end
+
   def nestable_regex_class_match(line)
     classes = Dir["#{File.dirname(__FILE__)}/base/**/*.rb"].map do |f|
       (module_name + '::' +f.split('/').last[0...-3].sub('_',' ').titleize.sub(' ','')).constantize
