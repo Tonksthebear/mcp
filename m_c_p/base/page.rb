@@ -21,9 +21,10 @@ class MCP::Base::Page < MCP::Base
       current_indentation = indentation_count(line)
       line = line.strip
 
-      if line.match(self.class::TITLE_REGEX)
+      if line.match(self.class::REGEX)
         set_title(line)
-      elsif indent_parameters[:indentation] < current_indentation && indent_parameters[:object]
+
+      elsif indent_parameters[:indentation] < current_indentation
         indent_parameters[:object].parse_line(line)
       elsif line.match(choice_class::REGEX)
         indent_parameters[:object] = choice_class.new(line)

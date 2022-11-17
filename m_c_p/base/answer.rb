@@ -9,7 +9,7 @@ class MCP::Base::Answer < MCP::Base
   end
 
   def parse_line(line)
-    class_match = nestable_regex_class_match(line)
+    class_match = regex_class_match(line)
     @then << class_match&.new(line)
   end
 end

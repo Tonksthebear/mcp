@@ -9,13 +9,11 @@ class MCP::Base
     line.sub(line.match(self.class::REGEX)[0],'').strip
   end
 
-  def nestable_regex_class_match(line)
-    classes = Dir["#{File.dirname(__FILE__)}/base/**/*.rb"].map do |f|
-      (module_name + '::' +f.split('/').last[0...-3].sub('_',' ').titleize.sub(' ','')).constantize
-    end
+  def regex_class_match(line)
+    module_class = module_name.constantize
 
-    classes.each do |current_class|
-      next unless current_class::NESTABLE
+    module_class.constants.map do |sym|
+      current_class = module_class.const_get(sym)
 
       return current_class if line.match(current_class::REGEX)
     end
