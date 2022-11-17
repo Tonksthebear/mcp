@@ -5,11 +5,11 @@ class MCP::Base::Answer < MCP::Base
 
   def initialize(text)
     @text = text.sub(text.match(self.class::REGEX)[0],'').strip
-    @then = nil
+    @then = []
   end
 
-  def set_then(line)
+  def parse_line(line)
     class_match = nestable_regex_class_match(line)
-    @then = class_match&.new(line)
+    @then << class_match&.new(line)
   end
 end

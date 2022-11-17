@@ -7,7 +7,7 @@ class MCP::Base
 
   def nestable_regex_class_match(line)
     classes = Dir["#{File.dirname(__FILE__)}/base/**/*.rb"].map do |f|
-      (module_name + '::' +f.split('/').last[0...-3].titleize).constantize
+      (module_name + '::' +f.split('/').last[0...-3].sub('_',' ').titleize.sub(' ','')).constantize
     end
 
     classes.each do |current_class|
