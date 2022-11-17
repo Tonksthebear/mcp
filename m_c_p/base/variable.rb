@@ -1,4 +1,6 @@
 class MCP::Base::Variable
+  NESTABLE = true
+
   attr_accessor :name, :value
 
   def initialize(variable_text)
