@@ -3,13 +3,15 @@ class MCP::Base::Choice < MCP::Base
 
   attr_accessor :options
 
-  def initialize(choice_text)
+  def initialize(line)
+    @line = line
     @options = []
   end
 
   def parse_line(line)
-    class_match = regex_class_match(line)
+    @test = line
+    command_instance = line.command_class&.new(line)
 
-    @options << class_match.new(line) if class_match
+    @options << command_instance if command_instance
   end
 end

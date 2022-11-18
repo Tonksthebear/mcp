@@ -3,14 +3,13 @@ class MCP::Base::Conditional < MCP::Base
 
   attr_accessor :if, :then, :body
 
-  def initialize(condition)
-    @if = strip_regex_match(condition)
+  def initialize(line)
+    @if = line.body
     @then = []
     @body = ""
   end
 
   def parse_line(line)
-    class_match = regex_class_match(line)
-    class_match ? @then << class_match.new(line) : @body << line
+    line.command_class_instance ? @then << line.command_class_instance : @body << line.text
   end
 end

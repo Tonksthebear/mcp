@@ -1,5 +1,5 @@
 class MCP::ChoiceScript::Variable < MCP::Base::Variable
-  REGEX = /^\*set /
+  REGEX = /\*set /
 
 
 end
