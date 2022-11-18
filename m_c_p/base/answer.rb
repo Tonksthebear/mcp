@@ -3,13 +3,12 @@ class MCP::Base::Answer < MCP::Base
 
   attr_accessor :text, :then
 
-  def initialize(text)
-    @text = strip_regex_match(text)
+  def initialize(line)
+    @line = line
     @then = []
   end
 
   def parse_line(line)
-    class_match = regex_class_match(line)
-    @then << class_match&.new(line)
+    @then << line.command_class&.new(line)
   end
 end

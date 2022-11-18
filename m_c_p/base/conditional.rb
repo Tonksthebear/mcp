@@ -1,16 +1,20 @@
 class MCP::Base::Conditional < MCP::Base
   NESTABLE = true
 
-  attr_accessor :if, :then, :body
+  attr_accessor :expression, :then, :then_body, :else, :else_body, :label
 
-  def initialize(condition)
-    @if = strip_regex_match(condition)
+  def initialize(line)
+    @line = line
+    parse_expression
     @then = []
-    @body = ""
+    @then_body = ''
   end
 
   def parse_line(line)
-    class_match = regex_class_match(line)
-    class_match ? @then << class_match.new(line) : @body << line
+    line.command_class ? @then << line.command_class.new(line) : @then_body << line.text
+  end
+
+  def parse_expression
+    @expression, @label = @line.body.split('#')
   end
 end

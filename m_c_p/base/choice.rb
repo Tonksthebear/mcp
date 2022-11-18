@@ -3,13 +3,24 @@ class MCP::Base::Choice < MCP::Base
 
   attr_accessor :options
 
-  def initialize(choice_text)
+  def initialize(line)
+    @line = line
     @options = []
+    @indent_parameters = { object: nil, indentation: @line.indentation }
   end
 
   def parse_line(line)
-    class_match = regex_class_match(line)
+    @test = line
+    command_instance = line.command_class&.new(line)
 
-    @options << class_match.new(line) if class_match
+    if @indent_parameters[:indentation] < line.indentation && @indent_parameters[:object]
+      @indent_parameters[:object].parse_line(line)
+    elsif line.command_class
+      command_instance = line.command_class.new(line)
+
+      @indent_parameters[:object] = command_instance if line.nestable?
+      @indent_parameters[:indentation] = line.indentation if line.nestable?
+      append_to_instance_variable(line.command_class, command_instance)
+    end
   end
 end

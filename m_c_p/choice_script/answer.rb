@@ -1,3 +1,3 @@
 class MCP::ChoiceScript::Answer < MCP::Base::Answer
-  REGEX = /^\#/
+  REGEX = /\#/
 end
