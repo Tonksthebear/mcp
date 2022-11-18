@@ -23,7 +23,7 @@ class MCP::Base::Page < MCP::Base
         next
       end
 
-      line = MCP::Base::Line.new(line_text, module_name.constantize)
+      line = MCP::Base::Line.new(line_text, module_name.constantize, index)
       @line = line
       @indent = indent_parameters
 

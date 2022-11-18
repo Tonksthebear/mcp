@@ -1,11 +1,12 @@
 class MCP::Base::Line
-  attr_reader :indentation, :text, :command_class, :command_class_instance
+  attr_reader :indentation, :text, :command_class, :command_class_instance, :index
 
-  def initialize(line_text, module_class)
+  def initialize(line_text, module_class, index)
     @text = line_text
     @module_class = module_class
     @indentation = indentation_count
     @command_class = get_command_class
+    @index = index
   end
 
   def get_command_class
